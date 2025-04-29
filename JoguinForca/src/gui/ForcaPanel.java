@@ -24,7 +24,6 @@ public class ForcaPanel extends javax.swing.JPanel {
         //dividindo a palavra informada, letra a letra, em um vetor de Strings
         divPal = nome.split("");
 
-        
         //definindo a imagem da forca sozinha, em situação de "0 erros"
         labelImage.setIcon(new ImageIcon(getClass().getResource("/imagens/0erros.png")));
         
@@ -72,10 +71,10 @@ public class ForcaPanel extends javax.swing.JPanel {
         boolean deuErro = true;
         
         //laço que passa por todas as posições do vetor da palavra dividida
-        for (int i = 0; i < divPal.length; i++) {
+        for(int i = 0; i < divPal.length; i++) {
 
             //se alguma das letras é a selecionada pelo usuário, não há erro
-            if (divPal[i].equalsIgnoreCase(letra)) {
+            if(divPal[i].equalsIgnoreCase(letra)) {
                 deuErro = false;
                 misto[i] = divPal[i];
             }
@@ -83,7 +82,7 @@ public class ForcaPanel extends javax.swing.JPanel {
         }
         
         //se, ao final da verificação, a letra não existe na palavra... 
-        if (deuErro == true) {
+        if(deuErro == true) {
             
             //a contagem de erros se altera
             erros++;
@@ -101,14 +100,14 @@ public class ForcaPanel extends javax.swing.JPanel {
             }
             
         //se não houve erro e a letra está presente na palavra
-        } else {
+        }else{
             
             //é criada a string que o jogador 2 verá como palavra misteriosa
             String palavraMista = "";
             
             //o vetor 'misto é copiado para a String
-            for(int j = 0; j < misto.length; j++) {
-                palavraMista += misto[j];
+            for (String misto1 : misto) {
+                palavraMista += misto1;
             }
             
             //definindo o label da palavra com a 'palavraMista'

@@ -117,7 +117,6 @@ public class ApresentaPanel extends javax.swing.JPanel {
         framePai.trocarPainel(new DefinePalavraPanel(framePai));
     }//GEN-LAST:event_iniciarBtnActionPerformed
 
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton iniciarBtn;
     private javax.swing.JLabel jLabel1;
