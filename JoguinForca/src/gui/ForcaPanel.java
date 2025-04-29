@@ -1,8 +1,11 @@
 package gui;
 
+import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
 public class ForcaPanel extends javax.swing.JPanel {
 
@@ -14,10 +17,10 @@ public class ForcaPanel extends javax.swing.JPanel {
 
     public ForcaPanel(FramePrincipal pai, String nome, String tema) {
         initComponents();
-        
+
         //instanciando o FramePrincipal como "pai"
         this.framePai = pai;
-        
+
         //definindo uma string que vai ser preenchida com asteriscos
         String ast = "";
 
@@ -26,114 +29,148 @@ public class ForcaPanel extends javax.swing.JPanel {
 
         //definindo a imagem da forca sozinha, em situação de "0 erros"
         labelImage.setIcon(new ImageIcon(getClass().getResource("/imagens/0erros.png")));
-        
-        for(int i = 0; i < divPal.length; i++) {
+
+        for (int i = 0; i < divPal.length; i++) {
             //definindo a String ast com asteriscos, de acordo com a quantidade de letras da palavra
             ast += "*";
         }
-        
+
         //definindo outro vetor de Strings que juntará as letras descobertas com os asteriscos
         misto = ast.split("");
 
         //definindo o texto do label que apresenta o tema ao jogador 2
         labelTema.setText("Tema: " + tema);
-        
+
         //definindo, inicialmente, a palavra misteriosa com asteriscos
         labelPalavra.setText(ast);
 
     }
-    
-    public boolean verificaPalavra(){
-        
+
+    public boolean verificaPalavra() {
+
         String chute = chutetext.getText();
-        
+
         String vetChute[] = chute.split("");
-        
-        if(vetChute.length != divPal.length){
+
+        if (vetChute.length != divPal.length) {
             return false;
         }
-        
-        for(int i = 0; i < vetChute.length; i++){
-            if(!vetChute[i].equals(divPal[i])){
+
+        for (int i = 0; i < vetChute.length; i++) {
+            if (!vetChute[i].equals(divPal[i])) {
                 return false;
             }
         }
         return true;
     }
-    
+
+    public void exibePalavra() {
+        //revelando a palavra
+        String revelacao = "";
+        for (String a : divPal) {
+            revelacao += a;
+        }
+        labelPalavra.setText(revelacao);
+    }
+
     //metodo executado a cada vez que o jogador 2 segere uma letra
     private void escolheLetra(String letra, JButton btn) {
-        
+
         //fazendo com que o botão em questão não seja mais visível
         btn.setVisible(false);
-        
+
         //variável que avalia, a cada vez que uma letra é selecionada, se ela existe ou não na palavra
         boolean deuErro = true;
-        
+
         //laço que passa por todas as posições do vetor da palavra dividida
-        for(int i = 0; i < divPal.length; i++) {
+        for (int i = 0; i < divPal.length; i++) {
 
             //se alguma das letras é a selecionada pelo usuário, não há erro
-            if(divPal[i].equalsIgnoreCase(letra)) {
+            if (divPal[i].equalsIgnoreCase(letra)) {
                 deuErro = false;
                 misto[i] = divPal[i];
             }
 
         }
-        
+
         //se, ao final da verificação, a letra não existe na palavra... 
-        if(deuErro == true) {
-            
+        if (deuErro == true) {
+
             //a contagem de erros se altera
             erros++;
-            
+
             //alterar imagem para a quantidade de erros correspondente
             labelImage.setIcon(new ImageIcon(getClass().getResource("/imagens/" + erros + "erros.png")));
-            
+
             //verificando se o jogador 2 errou 6 vezes
-            if(erros == 6){
+            if (erros == 6) {
+
+                exibePalavra();
+
                 //exibida mensagem informando a vitória do jogador 1
                 JOptionPane.showMessageDialog(this, "Jogador 1, você venceu!!!");
-                
+
                 //voltando para o Painel de definição da palavra
                 framePai.trocarPainel(new DefinePalavraPanel(framePai));
             }
-            
-        //se não houve erro e a letra está presente na palavra
-        }else{
-            
+
+            //se não houve erro e a letra está presente na palavra
+        } else {
+
             //é criada a string que o jogador 2 verá como palavra misteriosa
             String palavraMista = "";
-            
+
             //o vetor 'misto é copiado para a String
             for (String misto1 : misto) {
                 palavraMista += misto1;
             }
-            
+
             //definindo o label da palavra com a 'palavraMista'
             labelPalavra.setText(palavraMista);
-            
+
             //variável que vai verificar se a palavra que está sendo exibida é igual à palavra definida
             boolean igual = true;
-            
+
             //passando por todas as posições de ambos os vetores e comparando a letra em questão
-            for(int p = 0; p < divPal.length; p++){
+            for (int p = 0; p < divPal.length; p++) {
                 //se a letra de ambos os vetores for igual
-                if(!misto[p].equals(divPal[p])){
+                if (!misto[p].equals(divPal[p])) {
                     igual = false;
                     break;
                 }
             }
-            
+
             //se todas as letras são iguais em ambos os vetores...
-            if(igual == true){
+            if (igual == true) {
                 //é exibida a mensagem de vitória
                 JOptionPane.showMessageDialog(this, "Jogador 2, você venceu!!!");
-                
+
                 //voltamos à tela de definição da palavra e do tema
                 framePai.trocarPainel(new DefinePalavraPanel(framePai));
             }
         }
+    }
+
+    private void enterChute(JTextField chutetext) {
+        if (chutetext.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Digite a palavra para chutar", "Inserção da palavra", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        if (verificaPalavra() == true) {
+            //é exibida a mensagem de vitória
+            JOptionPane.showMessageDialog(this, "Palavra certa!!! Jogador 2, você venceu!!!");
+
+        } else {
+
+            //é revelada a palavra
+            exibePalavra();
+            
+            //é exibida a mensagem de vitória
+            JOptionPane.showMessageDialog(this, "Palavra errada!!! Jogador 1, você venceu!!!");
+
+        }
+        //voltamos à tela de definição da palavra e do tema
+        framePai.trocarPainel(new DefinePalavraPanel(framePai));
     }
 
     @SuppressWarnings("unchecked")
@@ -379,6 +416,14 @@ public class ForcaPanel extends javax.swing.JPanel {
         chutetext.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 chutetextActionPerformed(evt);
+            }
+        });
+        chutetext.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                chutetextKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                chutetextKeyTyped(evt);
             }
         });
 
@@ -651,28 +696,22 @@ public class ForcaPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void chutetextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chutetextActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_chutetextActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        
-        if(chutetext.getText().isEmpty()){
-            JOptionPane.showMessageDialog(this, "Digite a palavra para chutar", "Inserção da palavra", JOptionPane.WARNING_MESSAGE);
-            return;
-        }
-        if(verificaPalavra() == true){
-            //é exibida a mensagem de vitória
-            JOptionPane.showMessageDialog(this, "Palavra certa!!! Jogador 2, você venceu!!!");
-            
-        }else{
-            //é exibida a mensagem de vitória
-            JOptionPane.showMessageDialog(this, "Palavra errada!!! Jogador 1, você venceu!!!");
-            
-        }
-        //voltamos à tela de definição da palavra e do tema
-        framePai.trocarPainel(new DefinePalavraPanel(framePai));
-        
+        enterChute(chutetext);
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void chutetextKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_chutetextKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            enterChute(chutetext);
+        }
+    }//GEN-LAST:event_chutetextKeyPressed
+
+    private void chutetextKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_chutetextKeyTyped
+
+    }//GEN-LAST:event_chutetextKeyTyped
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton aBTN;

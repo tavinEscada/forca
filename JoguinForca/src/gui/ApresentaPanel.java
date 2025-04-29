@@ -110,7 +110,6 @@ public class ApresentaPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    
     //quando o botâo de iniciar for pressionado, o painel é trocado
     //painel de definição da palavra misteriosa
     private void iniciarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_iniciarBtnActionPerformed

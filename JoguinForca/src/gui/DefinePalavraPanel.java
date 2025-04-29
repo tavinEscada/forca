@@ -2,45 +2,46 @@ package gui;
 
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import model.Palavra;
 
 public class DefinePalavraPanel extends javax.swing.JPanel {
 
     private FramePrincipal framePai;
-    
+
     public DefinePalavraPanel(FramePrincipal pai) {
         initComponents();
-        
+
         //passando o FramePrincipal como atributo do Painel
         this.framePai = pai;
-        
+
     }
-    
+
     //definindo a imagem de fundo do Painel
     @Override
     protected void paintComponent(Graphics g) {
-        
+
         super.paintComponent(g);
-        
-        try {  
+
+        try {
             //carregando a imagem de fundo
             Image imagemFundo = ImageIO.read(
                     new File(getClass().
                             getResource("/imagens/palavra.png").
                             getFile()));
-            
+
             //redimen. uma imagem
-            imagemFundo = imagemFundo.getScaledInstance(1042, 509, 
+            imagemFundo = imagemFundo.getScaledInstance(1042, 509,
                     Image.SCALE_DEFAULT);
-            
+
             //"pintando" a imagem no painel
             g.drawImage(imagemFundo, 0, 0, this);
-            
-            
+
         } catch (IOException ex) {
             System.err.println("o arquivo esta corrompido");
         }
@@ -66,6 +67,11 @@ public class DefinePalavraPanel extends javax.swing.JPanel {
                 palavraTxtActionPerformed(evt);
             }
         });
+        palavraTxt.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                palavraTxtKeyPressed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -74,6 +80,11 @@ public class DefinePalavraPanel extends javax.swing.JPanel {
         temaTxt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 temaTxtActionPerformed(evt);
+            }
+        });
+        temaTxt.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                temaTxtKeyPressed(evt);
             }
         });
 
@@ -152,26 +163,32 @@ public class DefinePalavraPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void palavraTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_palavraTxtActionPerformed
-        
+
     }//GEN-LAST:event_palavraTxtActionPerformed
 
-    //quando o botão "Pronto" for selecionado...
-    private void prontoBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_prontoBtnActionPerformed
-        
-        //verificando se o jogador 1 deixou um dos campos em branco
-        if(palavraTxt.getText().isEmpty() || temaTxt.getText().isEmpty()){
+    public void enterPalavraTema(JTextField palavra, JTextField tema) {
+
+        if (palavra.getText().isEmpty() || tema.getText().isEmpty()) {
             //se sim, é exibida uma tela de erro
-            JOptionPane.showMessageDialog(this, "É necessário preencher todos os campos.", 
+            JOptionPane.showMessageDialog(this, "É necessário preencher todos os campos.",
                     "Preenchimento de dados", JOptionPane.WARNING_MESSAGE);
-        }else{
-            
+        } else {
+
             //se não, armazenamos o tema e a palavra em si ('nome') em um objeto da classe Palavra
-            Palavra p = new Palavra(palavraTxt.getText(), temaTxt.getText());
-            
+            Palavra p = new Palavra(palavra.getText(), tema.getText());
+
             //trocando para o painel do jogo propriamente dito
             //passando como parâmetro o painel, o tema e a palavra
             framePai.trocarPainel(new ForcaPanel(framePai, p.getNome(), p.getTema()));
         }
+
+    }
+
+    //quando o botão "Pronto" for selecionado...
+    private void prontoBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_prontoBtnActionPerformed
+
+        enterPalavraTema(palavraTxt, temaTxt);
+
     }//GEN-LAST:event_prontoBtnActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -182,6 +199,18 @@ public class DefinePalavraPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_temaTxtActionPerformed
 
+    private void palavraTxtKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_palavraTxtKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            enterPalavraTema(palavraTxt, temaTxt);
+        }
+    }//GEN-LAST:event_palavraTxtKeyPressed
+
+    private void temaTxtKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_temaTxtKeyPressed
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            enterPalavraTema(palavraTxt, temaTxt);
+        }
+    }//GEN-LAST:event_temaTxtKeyPressed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
@@ -191,7 +220,5 @@ public class DefinePalavraPanel extends javax.swing.JPanel {
     private javax.swing.JButton prontoBtn;
     private javax.swing.JTextField temaTxt;
     // End of variables declaration//GEN-END:variables
- 
+
 }
-
-
