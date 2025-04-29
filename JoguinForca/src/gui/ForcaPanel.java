@@ -3,7 +3,6 @@ package gui;
 import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
@@ -43,25 +42,16 @@ public class ForcaPanel extends javax.swing.JPanel {
 
         //definindo, inicialmente, a palavra misteriosa com asteriscos
         labelPalavra.setText(ast);
-
     }
 
     public boolean verificaPalavra() {
 
-        String chute = chutetext.getText();
-
-        String vetChute[] = chute.split("");
-
-        if (vetChute.length != divPal.length) {
-            return false;
+        String palavra = "";
+        
+        for(String a : divPal){
+            palavra += a;
         }
-
-        for (int i = 0; i < vetChute.length; i++) {
-            if (!vetChute[i].equals(divPal[i])) {
-                return false;
-            }
-        }
-        return true;
+        return palavra.equals(chutetext.getText());
     }
 
     public void exibePalavra() {
@@ -90,7 +80,6 @@ public class ForcaPanel extends javax.swing.JPanel {
                 deuErro = false;
                 misto[i] = divPal[i];
             }
-
         }
 
         //se, ao final da verificação, a letra não existe na palavra... 
@@ -114,7 +103,7 @@ public class ForcaPanel extends javax.swing.JPanel {
                 framePai.trocarPainel(new DefinePalavraPanel(framePai));
             }
 
-            //se não houve erro e a letra está presente na palavra
+        //se não houve erro e a letra está presente na palavra
         } else {
 
             //é criada a string que o jogador 2 verá como palavra misteriosa
@@ -206,10 +195,10 @@ public class ForcaPanel extends javax.swing.JPanel {
         bBTN = new javax.swing.JButton();
         labelImage = new javax.swing.JLabel();
         labelPalavra = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        voltarBtn = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         chutetext = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
+        chuteBtn = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -403,10 +392,10 @@ public class ForcaPanel extends javax.swing.JPanel {
         labelPalavra.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
         labelPalavra.setText(" ");
 
-        jButton1.setText("VOLTAR");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        voltarBtn.setText("VOLTAR");
+        voltarBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                voltarBtnActionPerformed(evt);
             }
         });
 
@@ -427,11 +416,11 @@ public class ForcaPanel extends javax.swing.JPanel {
             }
         });
 
-        jButton2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButton2.setText("Chutar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        chuteBtn.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        chuteBtn.setText("Chutar");
+        chuteBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                chuteBtnActionPerformed(evt);
             }
         });
 
@@ -439,27 +428,6 @@ public class ForcaPanel extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(labelImage, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 259, Short.MAX_VALUE)
-                        .addComponent(labelPalavra, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(211, 211, 211))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(223, 223, 223)
-                        .addComponent(jLabel1)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(256, 256, 256)
-                                .addComponent(chutetext, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(303, 303, 303)
-                                .addComponent(jButton2)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -477,7 +445,7 @@ public class ForcaPanel extends javax.swing.JPanel {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(32, 32, 32)
-                                        .addComponent(jButton1))
+                                        .addComponent(voltarBtn))
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(18, 18, 18)
                                         .addComponent(bBTN)
@@ -523,11 +491,32 @@ public class ForcaPanel extends javax.swing.JPanel {
                         .addGap(18, 18, 18)
                         .addComponent(oBTN)
                         .addGap(18, 18, 18)
-                        .addComponent(pBTN))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(338, 338, 338)
-                        .addComponent(labelTema)))
+                        .addComponent(pBTN)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(labelImage, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(70, 70, 70)
+                                .addComponent(labelPalavra, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(32, 32, 32)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel1)
+                                    .addComponent(labelTema))))
+                        .addGap(0, 80, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(71, 71, 71)
+                                .addComponent(chutetext, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(118, 118, 118)
+                                .addComponent(chuteBtn)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -536,14 +525,14 @@ public class ForcaPanel extends javax.swing.JPanel {
                 .addComponent(labelTema)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(109, 109, 109)
+                        .addGap(115, 115, 115)
                         .addComponent(labelPalavra, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(chutetext, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2))
+                        .addComponent(chuteBtn))
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(labelImage, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -580,8 +569,8 @@ public class ForcaPanel extends javax.swing.JPanel {
                             .addComponent(mBTN)
                             .addComponent(nBTN))))
                 .addGap(38, 38, 38)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(67, Short.MAX_VALUE))
+                .addComponent(voltarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(25, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -690,18 +679,18 @@ public class ForcaPanel extends javax.swing.JPanel {
         escolheLetra("m", mBTN);
     }//GEN-LAST:event_mBTNActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void voltarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_voltarBtnActionPerformed
         //voltamos à tela de definição da palavra e do tema
         framePai.trocarPainel(new DefinePalavraPanel(framePai));
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_voltarBtnActionPerformed
 
     private void chutetextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chutetextActionPerformed
 
     }//GEN-LAST:event_chutetextActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void chuteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chuteBtnActionPerformed
         enterChute(chutetext);
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_chuteBtnActionPerformed
 
     private void chutetextKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_chutetextKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
@@ -717,6 +706,7 @@ public class ForcaPanel extends javax.swing.JPanel {
     private javax.swing.JButton aBTN;
     private javax.swing.JButton bBTN;
     private javax.swing.JButton cBTN;
+    private javax.swing.JButton chuteBtn;
     private javax.swing.JTextField chutetext;
     private javax.swing.JButton dBTN;
     private javax.swing.JButton eBTN;
@@ -725,8 +715,6 @@ public class ForcaPanel extends javax.swing.JPanel {
     private javax.swing.JButton hBTN;
     private javax.swing.JButton iBTN;
     private javax.swing.JButton jBTN;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JButton kBTN;
     private javax.swing.JButton lBTN;
@@ -743,6 +731,7 @@ public class ForcaPanel extends javax.swing.JPanel {
     private javax.swing.JButton tBTN;
     private javax.swing.JButton uBTN;
     private javax.swing.JButton vBTN;
+    private javax.swing.JButton voltarBtn;
     private javax.swing.JButton wBTN;
     private javax.swing.JButton xBTN;
     private javax.swing.JButton yBTN;

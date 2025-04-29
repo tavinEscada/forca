@@ -58,7 +58,7 @@ public class DefinePalavraPanel extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
         prontoBtn = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        voltaBtn = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -104,11 +104,11 @@ public class DefinePalavraPanel extends javax.swing.JPanel {
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Palavra");
 
-        jButton1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jButton1.setText("Voltar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        voltaBtn.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        voltaBtn.setText("Voltar");
+        voltaBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                voltaBtnActionPerformed(evt);
             }
         });
 
@@ -134,7 +134,7 @@ public class DefinePalavraPanel extends javax.swing.JPanel {
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addComponent(prontoBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(voltaBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGap(252, 252, 252))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(416, 416, 416)
@@ -157,7 +157,7 @@ public class DefinePalavraPanel extends javax.swing.JPanel {
                 .addGap(30, 30, 30)
                 .addComponent(prontoBtn)
                 .addGap(18, 18, 18)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(voltaBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(64, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -173,6 +173,7 @@ public class DefinePalavraPanel extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "É necessário preencher todos os campos.",
                     "Preenchimento de dados", JOptionPane.WARNING_MESSAGE);
         } else {
+            
 
             //se não, armazenamos o tema e a palavra em si ('nome') em um objeto da classe Palavra
             Palavra p = new Palavra(palavra.getText(), tema.getText());
@@ -191,9 +192,9 @@ public class DefinePalavraPanel extends javax.swing.JPanel {
 
     }//GEN-LAST:event_prontoBtnActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void voltaBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_voltaBtnActionPerformed
         framePai.trocarPainel(new ApresentaPanel(framePai));
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_voltaBtnActionPerformed
 
     private void temaTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_temaTxtActionPerformed
         // TODO add your handling code here:
@@ -212,13 +213,13 @@ public class DefinePalavraPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_temaTxtKeyPressed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JTextField palavraTxt;
     private javax.swing.JButton prontoBtn;
     private javax.swing.JTextField temaTxt;
+    private javax.swing.JButton voltaBtn;
     // End of variables declaration//GEN-END:variables
 
 }

@@ -43,7 +43,7 @@
                           <Group type="102" alignment="1" attributes="0">
                               <Group type="103" groupAlignment="1" max="-2" attributes="0">
                                   <Component id="prontoBtn" max="32767" attributes="0"/>
-                                  <Component id="jButton1" max="32767" attributes="0"/>
+                                  <Component id="voltaBtn" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="252" max="-2" attributes="0"/>
                           </Group>
@@ -74,7 +74,7 @@
               <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
               <Component id="prontoBtn" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="jButton1" min="-2" pref="39" max="-2" attributes="0"/>
+              <Component id="voltaBtn" min="-2" pref="39" max="-2" attributes="0"/>
               <EmptySpace pref="64" max="32767" attributes="0"/>
           </Group>
       </Group>
@@ -137,7 +137,7 @@
         <Property name="text" type="java.lang.String" value="Palavra"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton1">
+    <Component class="javax.swing.JButton" name="voltaBtn">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="24" style="0"/>
@@ -145,7 +145,7 @@
         <Property name="text" type="java.lang.String" value="Voltar"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="voltaBtnActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>
