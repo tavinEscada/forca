@@ -1,2 +1,2 @@
 # forca
-jogo de forca com interface gráfica em java, feita usando o Netbeans
+jogo de forca com interface gráfica em java, feito usando o Netbeans
